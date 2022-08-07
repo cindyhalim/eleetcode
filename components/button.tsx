@@ -8,13 +8,13 @@ export enum ButtonType {
   "SECONDARY",
 }
 interface IButtonProps {
-  text: string;
+  children: React.ReactNode;
   type?: ButtonType;
   onClick: () => void;
 }
 
 export const Button: React.FC<IButtonProps> = ({
-  text,
+  children,
   type = ButtonType.PRIMARY,
   onClick,
 }) => {
@@ -36,7 +36,7 @@ export const Button: React.FC<IButtonProps> = ({
           cursor: "pointer",
         }}
       >
-        {text}
+        {children}
       </Box>
     </motion.div>
   );
