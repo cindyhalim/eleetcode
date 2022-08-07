@@ -4,6 +4,7 @@ export const theme = {
     white: "#fcfafa;",
     black: "#0D1821",
     mustard: "#E8AA14",
+    grey: "#b1b5ba",
     difficulty: {
       medium: "#f5c045",
       hard: "#eb5168",

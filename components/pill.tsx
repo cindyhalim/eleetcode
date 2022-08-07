@@ -34,10 +34,11 @@ export const Pill: React.FC<IPillProps> = ({
         border: 0,
         paddingY: "5px",
         paddingX: 10,
-        borderRadius: "5px",
+        borderRadius: 20,
         backgroundColor: color,
         color: theme.colors.white,
         fontSize: [10, 12, 14],
+        marginRight: "5px",
         ...(selectable && selectableProps),
       }}
     >

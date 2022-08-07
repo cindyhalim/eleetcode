@@ -11,6 +11,22 @@ a {
   text-decoration: none;
 }
 
+.preview > pre {
+  white-space: pre-wrap;
+  background-color: rgb(211, 215, 219, 0.2);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.preview > pre > strong {
+  display: block;
+}
+
+.preview > img {
+  max-width: 200px;
+  max-height: 200px;
+}
+
 * {
   box-sizing: border-box;
 }
