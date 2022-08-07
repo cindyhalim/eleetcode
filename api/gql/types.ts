@@ -40,3 +40,10 @@ export interface IQuestionTopicTagsQuery {
     }[];
   };
 }
+export interface IFeaturedQuestionListsQuery {
+  featuredQuestionLists: {
+    publicId: string;
+    name: string;
+    isPaidOnly: boolean;
+  }[];
+}

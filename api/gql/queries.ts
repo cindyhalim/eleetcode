@@ -49,3 +49,13 @@ export const QuestionTopicTags = `
     }
   }
 `;
+
+export const FeaturedQuestionLists = `
+  query featuredQuestionLists {
+	featuredQuestionLists {
+		publicId
+		name
+		isPaidOnly
+	}
+}
+`;

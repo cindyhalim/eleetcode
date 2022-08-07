@@ -11,12 +11,16 @@ export interface IProblem {
 }
 
 export type ProblemData = {
-  problem?: IProblem | null;
-  error?: string;
+  problem: IProblem | null;
 };
 
-export interface ITopics {
+export interface ITopic {
   id: string;
   name: string;
   slug: string;
+}
+
+export interface IProblemSet {
+  id: string;
+  name: string;
 }

@@ -69,7 +69,7 @@ const handler = async (
 
     res.status(200).json({ problem });
   } else {
-    res.status(500).send({ error: "Failed to fetch data" });
+    res.status(500);
   }
 };
 
