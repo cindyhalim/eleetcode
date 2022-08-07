@@ -32,9 +32,9 @@ export const Filters = () => {
     setProblemSets,
     difficultyFilter,
     setDifficultyFilter,
-    problemSetsFilter,
-    setProblemSetsFilter,
-    clearProblemSetsFilter,
+    problemSetFilter,
+    setProblemSetFilter,
+    clearProblemSetFilter,
     clearDifficultyFilter,
     topicsFilter,
     setTopicsFilter,
@@ -83,22 +83,21 @@ export const Filters = () => {
           isSelected={!topicsFilter.length}
           onSelect={() => clearTopicsFilter()}
         />
-        {topics &&
-          topics.map((topic) => (
-            <Pill
-              key={topic.id}
-              text={topic.name}
-              color={theme.colors.grey}
-              isSelected={topicsFilter.includes(topic.name)}
-              sx={{ marginY: "2px" }}
-              onSelect={() => setTopicsFilter(topic.name)}
-            />
-          ))}
+        {topics.map((topic) => (
+          <Pill
+            key={topic.id}
+            text={topic.name}
+            color={theme.colors.grey}
+            isSelected={topicsFilter.includes(topic.slug)}
+            sx={{ marginY: "2px" }}
+            onSelect={() => setTopicsFilter(topic.slug)}
+          />
+        ))}
       </Accordion>
       <Accordion title={"Problem sets"}>
         <AllFilter
-          isSelected={!problemSetsFilter}
-          onSelect={() => clearProblemSetsFilter()}
+          isSelected={!problemSetFilter}
+          onSelect={() => clearProblemSetFilter()}
         />
         {problemSets &&
           problemSets.map((problemSet) => (
@@ -106,10 +105,10 @@ export const Filters = () => {
               key={problemSet.id}
               text={problemSet.name}
               color={theme.colors.grey}
-              isSelected={problemSetsFilter === problemSet.id}
+              isSelected={problemSetFilter === problemSet.id}
               sx={{ marginY: "2px" }}
               onSelect={() => {
-                setProblemSetsFilter(problemSet.id);
+                setProblemSetFilter(problemSet.id);
               }}
             />
           ))}

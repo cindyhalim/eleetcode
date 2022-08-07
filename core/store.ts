@@ -4,10 +4,10 @@ import { IProblemSet, ITopic } from "../api";
 type ProblemSetID = string;
 
 interface IState {
-  topics: ITopic[] | null;
+  topics: ITopic[];
   problemSets: IProblemSet[] | null;
   topicsFilter: string[];
-  problemSetsFilter: ProblemSetID | null;
+  problemSetFilter: ProblemSetID | null;
   difficultyFilter: string | null;
 }
 
@@ -15,9 +15,9 @@ interface IActions {
   setTopics: (topics: ITopic[]) => void;
   setProblemSets: (problemSets: IProblemSet[]) => void;
   setDifficultyFilter: (difficulty: string) => void;
-  setProblemSetsFilter: (id: ProblemSetID) => void;
-  setTopicsFilter: (name: string) => void;
-  clearProblemSetsFilter: () => void;
+  setProblemSetFilter: (id: ProblemSetID) => void;
+  setTopicsFilter: (slug: string) => void;
+  clearProblemSetFilter: () => void;
   clearDifficultyFilter: () => void;
   clearTopicsFilter: () => void;
 }
@@ -25,10 +25,10 @@ interface IActions {
 interface IStore extends IState, IActions {}
 
 const initialState: IState = {
-  topics: null,
+  topics: [],
   problemSets: null,
   topicsFilter: [],
-  problemSetsFilter: null,
+  problemSetFilter: null,
   difficultyFilter: null,
 };
 
@@ -36,15 +36,15 @@ export const useStore = create<IStore>((set) => ({
   ...initialState,
   setTopics: (topics) => set({ topics }),
   setProblemSets: (problemSets) => set({ problemSets }),
-  setProblemSetsFilter: (id) => set({ problemSetsFilter: id }),
-  clearProblemSetsFilter: () => set({ problemSetsFilter: null }),
+  setProblemSetFilter: (id) => set({ problemSetFilter: id }),
+  clearProblemSetFilter: () => set({ problemSetFilter: null }),
   setDifficultyFilter: (difficulty) => set({ difficultyFilter: difficulty }),
   clearDifficultyFilter: () => set({ difficultyFilter: null }),
-  setTopicsFilter: (name) =>
+  setTopicsFilter: (slug) =>
     set(({ topicsFilter }) =>
-      topicsFilter.includes(name)
-        ? { topicsFilter: topicsFilter.filter((topic) => topic !== name) }
-        : { topicsFilter: [...topicsFilter, name] }
+      topicsFilter.includes(slug)
+        ? { topicsFilter: topicsFilter.filter((topic) => topic !== slug) }
+        : { topicsFilter: [...topicsFilter, slug] }
     ),
   clearTopicsFilter: () => set({ topicsFilter: [] }),
 }));
