@@ -16,7 +16,7 @@ export const theme = {
     fontWeight: 700,
   },
   button: {
-    fontSize: [15, 18, 20],
+    fontSize: 18,
     fontWeight: 400,
     fontFamily: "Arvo",
     border: 0,

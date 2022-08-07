@@ -35,7 +35,7 @@ export const Problem: React.FC<IProblem> = ({
           color={getDifficultyColor(difficulty)}
           selectable={false}
         />
-        <Box as="h3" sx={{ marginLeft: "5px" }}>
+        <Box as="h2" sx={{ marginLeft: "5px" }}>
           {title}
         </Box>
       </Flex>
