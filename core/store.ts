@@ -1,9 +1,16 @@
 import create from "zustand";
-import { IProblemSet, ITopic } from "../api";
+import { IProblem, IProblemSet, ITopic } from "../api";
 
 type ProblemSetID = string;
 
+export enum Route {
+  "FILTERS",
+  "TIMER",
+  "PROBLEM",
+}
 interface IState {
+  currentRoute: Route;
+  problem: IProblem | null;
   topics: ITopic[];
   problemSets: IProblemSet[] | null;
   topicsFilter: string[];
@@ -12,6 +19,8 @@ interface IState {
 }
 
 interface IActions {
+  setCurrentRoute: (route: Route) => void;
+  setProblem: (problem: IProblem) => void;
   setTopics: (topics: ITopic[]) => void;
   setProblemSets: (problemSets: IProblemSet[]) => void;
   setDifficultyFilter: (difficulty: string) => void;
@@ -25,6 +34,8 @@ interface IActions {
 interface IStore extends IState, IActions {}
 
 const initialState: IState = {
+  currentRoute: Route.FILTERS,
+  problem: null,
   topics: [],
   problemSets: null,
   topicsFilter: [],
@@ -34,6 +45,8 @@ const initialState: IState = {
 
 export const useStore = create<IStore>((set) => ({
   ...initialState,
+  setCurrentRoute: (route) => set({ currentRoute: route }),
+  setProblem: (problem) => set({ problem }),
   setTopics: (topics) => set({ topics }),
   setProblemSets: (problemSets) => set({ problemSets }),
   setProblemSetFilter: (id) => set({ problemSetFilter: id }),

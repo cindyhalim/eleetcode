@@ -1,19 +1,23 @@
-import axios from "axios";
 import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useState } from "react";
 import { Box, Flex, Text } from "rebass";
-import type { IProblem, ProblemData } from "../api";
 import { Button, ButtonType, ContentLayout } from "../components";
-import { useStore } from "../core";
+import { Route, useStore } from "../core";
 import { Problem, Filters } from "../features";
 import { theme } from "../styles/theme";
 
 const Home: NextPage = () => {
-  const [data, setData] = useState<IProblem | null>(null);
-  const { difficultyFilter, topicsFilter, problemSetFilter, topics } =
-    useStore();
+  const { currentRoute, setCurrentRoute } = useStore();
+
+  const getContent = (currentRoute: Route) => {
+    switch (currentRoute) {
+      case Route.PROBLEM:
+        return <Problem />;
+      default:
+        return <Filters />;
+    }
+  };
   return (
     <>
       <Head>
@@ -42,25 +46,13 @@ const Home: NextPage = () => {
             <span style={{ color: theme.colors.mustard }}>day</span>
           </Text>
           <Box sx={{ marginY: 20 }}>
-            <Button onClick={() => null}>filters</Button>
-            <Button onClick={() => null}>timer</Button>
+            <Button onClick={() => setCurrentRoute(Route.FILTERS)}>
+              filters
+            </Button>
+            <Button onClick={() => setCurrentRoute(Route.TIMER)}>timer</Button>
             <Button
               type={ButtonType.SECONDARY}
-              onClick={async () => {
-                const requestBody = {
-                  difficulty: difficultyFilter,
-                  problemSet: problemSetFilter,
-                  topics:
-                    topics.length === topicsFilter.length ? null : topicsFilter,
-                };
-                const response = await axios.post<ProblemData>(
-                  `${window.origin}/api/problem`,
-                  requestBody
-                );
-                if (response.data.problem) {
-                  setData(response.data.problem);
-                }
-              }}
+              onClick={() => setCurrentRoute(Route.PROBLEM)}
             >
               give me a problem
             </Button>
@@ -68,9 +60,7 @@ const Home: NextPage = () => {
         </Box>
         <AnimatePresence>
           <Box sx={{ width: "100%", padding: 40 }}>
-            <ContentLayout>
-              {data ? <Problem {...data} /> : <Filters />}
-            </ContentLayout>
+            <ContentLayout>{getContent(currentRoute)}</ContentLayout>
           </Box>
         </AnimatePresence>
       </Flex>
