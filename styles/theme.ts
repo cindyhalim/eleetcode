@@ -4,11 +4,26 @@ export const theme = {
     white: "#fcfafa;",
     black: "#0D1821",
     mustard: "#E8AA14",
+    difficulty: {
+      medium: "#f5c045",
+      hard: "#eb5168",
+      easy: "#63b8ab",
+    },
   },
   heading: {
     fontSize: [26, 40, 80],
     fontWeight: 700,
   },
-  button: {},
+  button: {
+    fontSize: [15, 18, 20],
+    fontWeight: 400,
+    fontFamily: "Arvo",
+    border: 0,
+    borderRadius: 5,
+    height: 40,
+    minWidth: 150,
+    padding: 15,
+    marginBottom: 10,
+  },
   text: {},
 };
