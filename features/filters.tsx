@@ -3,53 +3,54 @@ import React, { useEffect, useState } from "react";
 import { Box } from "rebass";
 import { IProblemSet, ITopic } from "../api";
 import { Accordion, Pill } from "../components";
+import { useStore } from "../core";
 import { theme } from "../styles/theme";
 import { DifficultyPill } from "./difficulty-pill";
 
-interface ITopicState extends ITopic {
+const AllFilter = ({
+  isSelected,
+  onSelect,
+}: {
   isSelected: boolean;
-}
-interface IProblemSetState extends IProblemSet {
-  isSelected: boolean;
-}
+  onSelect: () => void;
+}) => (
+  <Pill
+    key={"All"}
+    text={"All"}
+    color={theme.colors.grey}
+    isSelected={isSelected}
+    sx={{ marginY: "2px" }}
+    onSelect={onSelect}
+  />
+);
 
 export const Filters = () => {
-  const [topics, setTopics] = useState<ITopicState[] | null>(null);
-  const [problemSets, setProblemSets] = useState<IProblemSetState[] | null>(
-    null
-  );
-
-  const [difficultyFilter, setDifficultyFilter] = useState<string[]>([
-    "Easy",
-    "Medium",
-    "Hard",
-  ]);
+  const {
+    topics,
+    problemSets,
+    setTopics,
+    setProblemSets,
+    difficultyFilter,
+    setDifficultyFilter,
+    problemSetsFilter,
+    setProblemSetsFilter,
+    clearProblemSetsFilter,
+    clearDifficultyFilter,
+    topicsFilter,
+    setTopicsFilter,
+    clearTopicsFilter,
+  } = useStore();
 
   const getTopics = async () => {
     const topics = await axios.get<ITopic[]>(`${window.origin}/api/topics`);
-    const topicsState = topics.data.map((topic) => ({
-      ...topic,
-      isSelected: true,
-    }));
-    setTopics(topicsState);
+    setTopics(topics.data);
   };
 
   const getProblemSets = async () => {
     const problemSets = await axios.get<IProblemSet[]>(
       `${window.origin}/api/problem-sets`
     );
-    const problemSetsState = problemSets.data.map((problemSet) => ({
-      ...problemSet,
-      isSelected: false,
-    }));
-    setProblemSets([
-      {
-        id: "000",
-        name: "All",
-        isSelected: true,
-      },
-      ...problemSetsState,
-    ]);
+    setProblemSets(problemSets.data);
   };
 
   useEffect(() => {
@@ -60,53 +61,56 @@ export const Filters = () => {
   return (
     <>
       <Box as="h2">Filters</Box>
-
       <Accordion title={"Difficulty"}>
+        <AllFilter
+          isSelected={!difficultyFilter}
+          onSelect={() => clearDifficultyFilter()}
+        />
         {["Easy", "Medium", "Hard"].map((difficulty, idx) => (
           <DifficultyPill
             key={idx}
             difficulty={difficulty}
             selectable
-            isSelected={difficultyFilter.includes(difficulty) ?? false}
+            isSelected={difficultyFilter === difficulty}
             onSelect={() => {
-              let updatedDifficultyFilter;
-              if (difficultyFilter?.includes(difficulty)) {
-                updatedDifficultyFilter = difficultyFilter?.filter(
-                  (diff) => diff !== difficulty
-                );
-              } else {
-                updatedDifficultyFilter = [...difficultyFilter, difficulty];
-              }
-
-              setDifficultyFilter(updatedDifficultyFilter);
+              setDifficultyFilter(difficulty);
             }}
           />
         ))}
       </Accordion>
-
       <Accordion title={"Topics"}>
+        <AllFilter
+          isSelected={!topicsFilter.length}
+          onSelect={() => clearTopicsFilter()}
+        />
         {topics &&
           topics.map((topic) => (
             <Pill
               key={topic.id}
               text={topic.name}
               color={theme.colors.grey}
-              isSelected={topic.isSelected}
+              isSelected={topicsFilter.includes(topic.name)}
               sx={{ marginY: "2px" }}
-              onSelect={() => {}}
+              onSelect={() => setTopicsFilter(topic.name)}
             />
           ))}
       </Accordion>
       <Accordion title={"Problem sets"}>
+        <AllFilter
+          isSelected={!problemSetsFilter}
+          onSelect={() => clearProblemSetsFilter()}
+        />
         {problemSets &&
           problemSets.map((problemSet) => (
             <Pill
               key={problemSet.id}
               text={problemSet.name}
               color={theme.colors.grey}
-              isSelected={problemSet.isSelected}
+              isSelected={problemSetsFilter === problemSet.id}
               sx={{ marginY: "2px" }}
-              onSelect={() => {}}
+              onSelect={() => {
+                setProblemSetsFilter(problemSet.id);
+              }}
             />
           ))}
       </Accordion>
