@@ -1,12 +1,14 @@
 import React from "react";
-import { Box } from "rebass";
+import { Box, SxStyleProp } from "rebass";
 import { theme } from "../styles/theme";
 
 interface IPillProps {
-  selectable?: boolean;
-  isSelected?: boolean;
   color: string;
   text: string;
+  selectable?: boolean;
+  isSelected?: boolean;
+  onSelect?: () => void;
+  sx?: SxStyleProp;
 }
 
 export const Pill: React.FC<IPillProps> = ({
@@ -14,6 +16,8 @@ export const Pill: React.FC<IPillProps> = ({
   isSelected,
   color,
   text,
+  sx,
+  onSelect,
 }) => {
   const selectableProps = {
     ":hover": {
@@ -26,10 +30,12 @@ export const Pill: React.FC<IPillProps> = ({
     color: isSelected ? theme.colors.white : color,
     border: `2px solid ${color}`,
   };
+
   return (
     <Box
       as={"span"}
       sx={{
+        display: "inline-block",
         cursor: "default",
         border: 0,
         paddingY: "5px",
@@ -40,7 +46,9 @@ export const Pill: React.FC<IPillProps> = ({
         fontSize: [10, 12, 14],
         marginRight: "5px",
         ...(selectable && selectableProps),
+        ...sx,
       }}
+      onClick={onSelect}
     >
       {text}
     </Box>

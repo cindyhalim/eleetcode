@@ -22,11 +22,6 @@ a {
   display: block;
 }
 
-.preview > img {
-  max-width: 200px;
-  max-height: 200px;
-}
-
 * {
   box-sizing: border-box;
 }

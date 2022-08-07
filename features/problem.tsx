@@ -3,6 +3,7 @@ import { Box, Flex } from "rebass";
 import { theme } from "../styles/theme";
 import { Accordion, Button, Pill } from "../components";
 import type { IProblem } from "../api";
+import { DifficultyPill } from "./difficulty-pill";
 
 export const Problem: React.FC<IProblem> = ({
   title,
@@ -10,58 +11,36 @@ export const Problem: React.FC<IProblem> = ({
   topicTags,
   content: preview,
   url,
-}) => {
-  const getDifficultyColor = (difficulty: string) => {
-    if (difficulty === "Medium") return theme.colors.difficulty.medium;
-    if (difficulty === "Hard") return theme.colors.difficulty.hard;
-    if (difficulty === "Easy") return theme.colors.difficulty.easy;
+}) => (
+  <>
+    <Flex sx={{ marginY: 15, alignItems: "center" }}>
+      <DifficultyPill difficulty={difficulty} />
+      <Box as="h2" sx={{ marginLeft: "5px" }}>
+        {title}
+      </Box>
+    </Flex>
 
-    return "";
-  };
-  return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "100%",
-        border: `5px solid ${theme.colors.black}`,
-        borderRadius: 20,
-        padding: 40,
-        overflowY: "scroll",
-      }}
-    >
-      <Flex sx={{ marginY: 15, alignItems: "center" }}>
+    <Button onClick={() => null}>
+      <a href={url} target="_blank" rel="noreferrer">
+        visit problem
+      </a>
+    </Button>
+    <Accordion title="Topics">
+      {topicTags.map((topic, idx) => (
         <Pill
-          text={difficulty}
-          color={getDifficultyColor(difficulty)}
+          key={idx}
+          text={topic}
+          color={theme.colors.grey}
           selectable={false}
         />
-        <Box as="h2" sx={{ marginLeft: "5px" }}>
-          {title}
-        </Box>
-      </Flex>
-
-      <Button onClick={() => null}>
-        <a href={url} target="_blank" rel="noreferrer">
-          visit problem
-        </a>
-      </Button>
-      <Accordion title="Topics">
-        {topicTags.map((topic, idx) => (
-          <Pill
-            key={idx}
-            text={topic}
-            color={theme.colors.grey}
-            selectable={false}
-          />
-        ))}
-      </Accordion>
-      <Accordion title="Preview">
-        <Box
-          sx={{ width: "100%", wordWrap: "break-word", fontSize: 14 }}
-          className="preview"
-          dangerouslySetInnerHTML={{ __html: preview }}
-        />
-      </Accordion>
-    </Box>
-  );
-};
+      ))}
+    </Accordion>
+    <Accordion title="Preview">
+      <Box
+        sx={{ width: "100%", wordWrap: "break-word", fontSize: 14 }}
+        className="preview"
+        dangerouslySetInnerHTML={{ __html: preview }}
+      />
+    </Accordion>
+  </>
+);

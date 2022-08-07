@@ -29,7 +29,9 @@ export const Accordion: React.FC<IAccordionProps> = ({ title, children }) => {
           width={ICON_DIMENSION_IN_PX}
           height={ICON_DIMENSION_IN_PX}
         />
-        <Text sx={{ fontWeight: 700 }}>{title}</Text>
+        <Text as="h3" sx={{ fontWeight: 700 }}>
+          {title}
+        </Text>
       </Flex>
       <AnimatePresence initial={false}>
         {isExpanded && (
