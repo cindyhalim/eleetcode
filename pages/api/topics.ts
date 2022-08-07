@@ -4,9 +4,13 @@ import {
   type IQuestionTopicTagsQuery,
   client,
   QuestionTopicTags,
+  IError,
 } from "../../api";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<ITopic[]>) => {
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<ITopic[] | IError>
+) => {
   if (req.method === "GET") {
     try {
       const { data } = await client
@@ -23,10 +27,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ITopic[]>) => {
 
       res.status(200).json(result);
     } catch (e) {
-      res.status(400);
+      res.status(400).send({ error: "Failed to get data" });
     }
   } else {
-    res.status(500);
+    res.status(500).send({ error: "Failed to get data" });
   }
 };
 

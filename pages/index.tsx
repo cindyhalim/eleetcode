@@ -6,11 +6,14 @@ import { useState } from "react";
 import { Box, Flex, Text } from "rebass";
 import type { IProblem, ProblemData } from "../api";
 import { Button, ButtonType, ContentLayout } from "../components";
+import { useStore } from "../core";
 import { Problem, Filters } from "../features";
 import { theme } from "../styles/theme";
 
 const Home: NextPage = () => {
   const [data, setData] = useState<IProblem | null>(null);
+  const { difficultyFilter, topicsFilter, problemSetFilter, topics } =
+    useStore();
   return (
     <>
       <Head>
@@ -44,8 +47,15 @@ const Home: NextPage = () => {
             <Button
               type={ButtonType.SECONDARY}
               onClick={async () => {
-                const response = await axios.get<ProblemData>(
-                  `${window.origin}/api/problem`
+                const requestBody = {
+                  difficulty: difficultyFilter,
+                  problemSet: problemSetFilter,
+                  topics:
+                    topics.length === topicsFilter.length ? null : topicsFilter,
+                };
+                const response = await axios.post<ProblemData>(
+                  `${window.origin}/api/problem`,
+                  requestBody
                 );
                 if (response.data.problem) {
                   setData(response.data.problem);

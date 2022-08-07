@@ -1,5 +1,9 @@
 import { HTML } from "./gql";
 
+export interface IError {
+  error: string;
+}
+
 type ProblemUrl = `https://leetcode.com/problems/${string}`;
 export interface IProblem {
   id: string;

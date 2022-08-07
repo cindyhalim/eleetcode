@@ -4,11 +4,12 @@ import {
   type IFeaturedQuestionListsQuery,
   client,
   FeaturedQuestionLists,
+  IError,
 } from "../../api";
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<IProblemSet[]>
+  res: NextApiResponse<IProblemSet[] | IError>
 ) => {
   if (req.method === "GET") {
     try {
@@ -25,10 +26,10 @@ const handler = async (
 
       res.status(200).json(freeProblemSets);
     } catch (e) {
-      res.status(400);
+      res.status(400).send({ error: "Failed to get data" });
     }
   } else {
-    res.status(500);
+    res.status(500).send({ error: "Failed to get data" });
   }
 };
 
