@@ -34,3 +34,18 @@ export const QuestionDataQuery = `
     }
   }
 `;
+
+export const QuestionTopicTags = `
+  query questionTopicTags {
+    questionTopicTags {
+      edges {
+        node {
+          id
+          name
+          slug
+          translatedName
+        }
+      }
+    }
+  }
+`;

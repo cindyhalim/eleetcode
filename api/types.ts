@@ -1,4 +1,4 @@
-import { HTML } from "../gql";
+import { HTML } from "./gql";
 
 type ProblemUrl = `https://leetcode.com/problems/${string}`;
 export interface IProblem {
@@ -14,3 +14,9 @@ export type ProblemData = {
   problem?: IProblem | null;
   error?: string;
 };
+
+export interface ITopics {
+  id: string;
+  name: string;
+  slug: string;
+}

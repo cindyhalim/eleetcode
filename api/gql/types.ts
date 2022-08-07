@@ -28,3 +28,15 @@ export interface IQuestionDataQuery {
     topicTags: { name: string; slug: string }[];
   };
 }
+
+export interface IQuestionTopicTagsQuery {
+  questionTopicTags: {
+    edges: {
+      node: {
+        id: string;
+        name: string;
+        slug: string;
+      };
+    }[];
+  };
+}

@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { IProblem, ProblemData } from "../../api";
 import {
+  type IProblem,
+  type ProblemData,
   type IProblemSetQuery,
   type IQuestionDataQuery,
   type ITotalProblemsQuery,
@@ -8,7 +9,7 @@ import {
   ProblemSetQuery,
   TotalProblemsQuery,
   QuestionDataQuery,
-} from "../../gql";
+} from "../../api";
 
 const handler = async (
   req: NextApiRequest,
