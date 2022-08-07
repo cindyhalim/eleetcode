@@ -1,6 +1,6 @@
 import React from "react";
 import { Pill } from "../components";
-import { theme } from "../styles/theme";
+import { getDifficultyColor } from "./utils";
 
 interface IDifficultyPillProps {
   difficulty: string;
@@ -15,14 +15,6 @@ export const DifficultyPill: React.FC<IDifficultyPillProps> = ({
   isSelected,
   onSelect,
 }) => {
-  const getDifficultyColor = (difficulty: string) => {
-    if (difficulty === "Medium") return theme.colors.difficulty.medium;
-    if (difficulty === "Hard") return theme.colors.difficulty.hard;
-    if (difficulty === "Easy") return theme.colors.difficulty.easy;
-
-    return "";
-  };
-
   return (
     <Pill
       text={difficulty}

@@ -11,6 +11,7 @@ export const theme = {
       easy: "#63b8ab",
     },
   },
+  fontFamily: "Arvo",
   heading: {
     fontSize: [26, 40, 80],
     fontWeight: 700,

@@ -8,6 +8,15 @@ export enum Route {
   "TIMER",
   "PROBLEM",
 }
+
+type Minutes = string;
+
+interface ITimerSettings {
+  enabled: boolean;
+  easy: Minutes;
+  medium: Minutes;
+  hard: Minutes;
+}
 interface IState {
   currentRoute: Route;
   problem: IProblem | null;
@@ -16,6 +25,7 @@ interface IState {
   topicsFilter: string[];
   problemSetFilter: ProblemSetID | null;
   difficultyFilter: string | null;
+  timerSettings: ITimerSettings;
 }
 
 interface IActions {
@@ -29,6 +39,11 @@ interface IActions {
   clearProblemSetFilter: () => void;
   clearDifficultyFilter: () => void;
   clearTopicsFilter: () => void;
+  setTimerEnabled: () => void;
+  setTimerDuration: (
+    difficulty: keyof Omit<ITimerSettings, "enabled">,
+    duration: Minutes
+  ) => void;
 }
 
 interface IStore extends IState, IActions {}
@@ -41,6 +56,12 @@ const initialState: IState = {
   topicsFilter: [],
   problemSetFilter: null,
   difficultyFilter: null,
+  timerSettings: {
+    enabled: true,
+    easy: "20",
+    medium: "40",
+    hard: "60",
+  },
 };
 
 export const useStore = create<IStore>((set) => ({
@@ -60,4 +81,18 @@ export const useStore = create<IStore>((set) => ({
         : { topicsFilter: [...topicsFilter, slug] }
     ),
   clearTopicsFilter: () => set({ topicsFilter: [] }),
+  setTimerEnabled: () =>
+    set((state) => ({
+      timerSettings: {
+        ...state.timerSettings,
+        enabled: !state.timerSettings.enabled,
+      },
+    })),
+  setTimerDuration: (difficulty, duration) =>
+    set((state) => ({
+      timerSettings: {
+        ...state.timerSettings,
+        [difficulty]: duration,
+      },
+    })),
 }));

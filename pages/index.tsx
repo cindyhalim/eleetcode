@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Box, Flex, Text } from "rebass";
 import { Button, ButtonType, ContentLayout } from "../components";
 import { Route, useStore } from "../core";
-import { Problem, Filters } from "../features";
+import { Problem, Filters, Timer } from "../features";
 import { theme } from "../styles/theme";
 
 const Home: NextPage = () => {
@@ -14,6 +14,8 @@ const Home: NextPage = () => {
     switch (currentRoute) {
       case Route.PROBLEM:
         return <Problem />;
+      case Route.TIMER:
+        return <Timer />;
       default:
         return <Filters />;
     }
@@ -60,7 +62,7 @@ const Home: NextPage = () => {
         </Box>
         <AnimatePresence>
           <Box sx={{ width: "100%", padding: 40 }}>
-            <ContentLayout>{getContent(currentRoute)}</ContentLayout>
+            {getContent(currentRoute)}
           </Box>
         </AnimatePresence>
       </Flex>

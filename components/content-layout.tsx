@@ -1,12 +1,16 @@
 import React from "react";
-import { Box } from "rebass";
+import { Box, Text } from "rebass";
 import { theme } from "../styles/theme";
 
 interface IContentLayoutProps {
+  title?: string;
   children: React.ReactNode;
 }
 
-export const ContentLayout: React.FC<IContentLayoutProps> = ({ children }) => (
+export const ContentLayout: React.FC<IContentLayoutProps> = ({
+  title,
+  children,
+}) => (
   <Box
     sx={{
       width: "100%",
@@ -17,6 +21,11 @@ export const ContentLayout: React.FC<IContentLayoutProps> = ({ children }) => (
       overflowY: "scroll",
     }}
   >
+    {title && (
+      <Text as="h2" sx={{ marginBottom: 20 }}>
+        {title}
+      </Text>
+    )}
     {children}
   </Box>
 );

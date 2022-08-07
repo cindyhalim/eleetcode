@@ -2,10 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Box } from "rebass";
 import { IProblemSet, ITopic } from "../api";
-import { Accordion, Pill } from "../components";
+import { Accordion, ContentLayout, Pill } from "../components";
 import { useStore } from "../core";
 import { theme } from "../styles/theme";
 import { DifficultyPill } from "./difficulty-pill";
+import { Difficulties } from "./utils";
 
 const AllFilter = ({
   isSelected,
@@ -59,14 +60,13 @@ export const Filters = () => {
   }, []);
 
   return (
-    <>
-      <Box as="h2">Filters</Box>
+    <ContentLayout title="Filters">
       <Accordion title={"Difficulty"}>
         <AllFilter
           isSelected={!difficultyFilter}
           onSelect={() => clearDifficultyFilter()}
         />
-        {["Easy", "Medium", "Hard"].map((difficulty, idx) => (
+        {Difficulties.map((difficulty, idx) => (
           <DifficultyPill
             key={idx}
             difficulty={difficulty}
@@ -113,6 +113,6 @@ export const Filters = () => {
             />
           ))}
       </Accordion>
-    </>
+    </ContentLayout>
   );
 };
