@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Box, Text } from "rebass";
+import { Box } from "rebass";
 import { IProblemSet, ITopic } from "../api";
 import { Accordion, Pill } from "../components";
 import { theme } from "../styles/theme";
@@ -13,7 +13,7 @@ interface IProblemSetState extends IProblemSet {
   isSelected: boolean;
 }
 
-export const Settings = () => {
+export const Filters = () => {
   const [topics, setTopics] = useState<ITopicState[] | null>(null);
   const [problemSets, setProblemSets] = useState<IProblemSetState[] | null>(
     null

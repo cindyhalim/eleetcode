@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Box, Flex, Text } from "rebass";
 import type { IProblem, ProblemData } from "../api";
 import { Button, ButtonType, ContentLayout } from "../components";
-import { Problem, Settings } from "../features";
+import { Problem, Filters } from "../features";
 import { theme } from "../styles/theme";
 
 const Home: NextPage = () => {
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
         <AnimatePresence>
           <Box sx={{ width: "100%", padding: 40 }}>
             <ContentLayout>
-              {data ? <Problem {...data} /> : <Settings />}
+              {data ? <Problem {...data} /> : <Filters />}
             </ContentLayout>
           </Box>
         </AnimatePresence>

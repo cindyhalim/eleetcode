@@ -1,2 +1,2 @@
 export * from "./problem";
-export * from "./settings";
+export * from "./filters";
