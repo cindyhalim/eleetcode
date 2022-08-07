@@ -16,7 +16,6 @@ const handler = async (
         .query<IFeaturedQuestionListsQuery>(FeaturedQuestionLists)
         .toPromise();
 
-      console.log(data?.featuredQuestionLists);
       const freeProblemSets = [...(data?.featuredQuestionLists ?? [])]
         .filter((questionList) => !questionList.isPaidOnly)
         .map((questionList) => ({

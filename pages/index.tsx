@@ -5,8 +5,8 @@ import Head from "next/head";
 import { useState } from "react";
 import { Box, Flex, Text } from "rebass";
 import type { IProblem, ProblemData } from "../api";
-import { Button, ButtonType } from "../components";
-import { Problem } from "../features";
+import { Button, ButtonType, ContentLayout } from "../components";
+import { Problem, Settings } from "../features";
 import { theme } from "../styles/theme";
 
 const Home: NextPage = () => {
@@ -26,11 +26,11 @@ const Home: NextPage = () => {
         <Box
           sx={{
             width: ["100%", "100%", "100%"],
-            maxWidth: ["100%", "100%", data ? "500px" : "100%"],
+            maxWidth: ["100%", "100%", "500px"],
             padding: 20,
             display: "flex",
             justifyContent: "center",
-            alignItems: data ? "flex-start" : "center",
+            alignItems: "flex-start",
             flexDirection: "column",
           }}
         >
@@ -38,27 +38,30 @@ const Home: NextPage = () => {
             a leet<span style={{ color: theme.colors.mustard }}>code</span> a{" "}
             <span style={{ color: theme.colors.mustard }}>day</span>
           </Text>
-          <Button onClick={() => null}>settings</Button>
-          <Button
-            type={ButtonType.SECONDARY}
-            onClick={async () => {
-              const response = await axios.get<ProblemData>(
-                `${window.origin}/api/problem`
-              );
-              if (response.data.problem) {
-                setData(response.data.problem);
-              }
-            }}
-          >
-            give me a problem
-          </Button>
+          <Box sx={{ marginY: 20 }}>
+            <Button onClick={() => null}>filters</Button>
+            <Button onClick={() => null}>timer</Button>
+            <Button
+              type={ButtonType.SECONDARY}
+              onClick={async () => {
+                const response = await axios.get<ProblemData>(
+                  `${window.origin}/api/problem`
+                );
+                if (response.data.problem) {
+                  setData(response.data.problem);
+                }
+              }}
+            >
+              give me a problem
+            </Button>
+          </Box>
         </Box>
         <AnimatePresence>
-          {data && (
-            <Box sx={{ width: "100%", padding: 40 }}>
-              <Problem {...data} />
-            </Box>
-          )}
+          <Box sx={{ width: "100%", padding: 40 }}>
+            <ContentLayout>
+              {data ? <Problem {...data} /> : <Settings />}
+            </ContentLayout>
+          </Box>
         </AnimatePresence>
       </Flex>
     </>
