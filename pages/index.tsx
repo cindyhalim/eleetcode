@@ -2,13 +2,13 @@ import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Box, Flex, Text } from "rebass";
-import { Button, ButtonType, ContentLayout } from "../components";
+import { Button, ButtonType } from "../components";
 import { Route, useStore } from "../core";
-import { Problem, Filters, Timer } from "../features";
+import { Problem, Filters, Timer, TimerProgress } from "../features";
 import { theme } from "../styles/theme";
 
 const Home: NextPage = () => {
-  const { currentRoute, setCurrentRoute } = useStore();
+  const { currentRoute, setCurrentRoute, setProblem } = useStore();
 
   const getContent = (currentRoute: Route) => {
     switch (currentRoute) {
@@ -31,7 +31,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Flex sx={{ height: "100vh", width: "100%" }}>
+      <Flex sx={{ height: "100vh", width: "100%", position: "relative" }}>
+        <TimerProgress />
         <Box
           sx={{
             width: ["100%", "100%", "100%"],
@@ -54,7 +55,10 @@ const Home: NextPage = () => {
             <Button onClick={() => setCurrentRoute(Route.TIMER)}>timer</Button>
             <Button
               type={ButtonType.SECONDARY}
-              onClick={() => setCurrentRoute(Route.PROBLEM)}
+              onClick={() => {
+                setProblem(null);
+                setCurrentRoute(Route.PROBLEM);
+              }}
             >
               give me a problem
             </Button>

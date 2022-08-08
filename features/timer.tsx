@@ -10,7 +10,7 @@ export const Timer = () => {
   const {
     timerSettings: { enabled, easy, medium, hard },
     setTimerEnabled,
-    setTimerDuration,
+    setTimerDurationSetting,
   } = useStore();
 
   const getDuration = (difficulty: string) => {
@@ -84,7 +84,7 @@ export const Timer = () => {
               onChange={(event) => {
                 const value = event.target.value;
                 const key = getKey(difficulty);
-                setTimerDuration(
+                setTimerDurationSetting(
                   key,
                   value.match(/\d/) && value.length <= 3 ? value : ""
                 );

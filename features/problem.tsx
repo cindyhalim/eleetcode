@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Box, Flex } from "rebass";
 import { theme } from "../styles/theme";
 import { Accordion, Button, ContentLayout, Pill } from "../components";
-import type { IProblem, ProblemData } from "../api";
+import type { ProblemData } from "../api";
 import { DifficultyPill } from "./difficulty-pill";
 import { useStore } from "../core";
 import axios from "axios";
+import { useTimer } from "./timer-progress";
 
 export const Problem = () => {
   const {
@@ -16,8 +17,10 @@ export const Problem = () => {
     problemSetFilter,
     topics,
   } = useStore();
+  const { startTimer, resetTimer } = useTimer();
 
-  const getProblem = async () => {
+  const getProblem = useCallback(async () => {
+    console.log("Fetching problem");
     const requestBody = {
       difficulty: difficultyFilter,
       problemSet: problemSetFilter,
@@ -30,11 +33,24 @@ export const Problem = () => {
     if (response.data.problem) {
       setProblem(response.data.problem);
     }
-  };
+  }, [
+    difficultyFilter,
+    problemSetFilter,
+    topicsFilter,
+    topics.length,
+    setProblem,
+  ]);
 
   useEffect(() => {
+    resetTimer();
     getProblem();
   }, []);
+
+  const handleOnClick = () => {
+    if (problem && problem?.difficulty) {
+      startTimer(problem.difficulty);
+    }
+  };
 
   return (
     <ContentLayout>
@@ -47,7 +63,7 @@ export const Problem = () => {
             </Box>
           </Flex>
 
-          <Button onClick={() => null}>
+          <Button onClick={handleOnClick}>
             <a href={problem.url} target="_blank" rel="noreferrer">
               visit problem
             </a>
