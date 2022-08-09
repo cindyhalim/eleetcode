@@ -56,9 +56,14 @@ export const Problem = () => {
     <ContentLayout>
       {problem ? (
         <>
-          <Flex sx={{ marginY: 15, alignItems: "center" }}>
+          <Flex
+            sx={{
+              marginY: 15,
+              alignItems: "center",
+            }}
+          >
             <DifficultyPill difficulty={problem.difficulty} />
-            <Box as="h2" sx={{ marginLeft: "5px" }}>
+            <Box as="h2" sx={{ marginLeft: "5px", fontSize: [20, 20, 20, 30] }}>
               {problem.title}
             </Box>
           </Flex>

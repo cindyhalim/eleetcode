@@ -43,8 +43,9 @@ export const Pill: React.FC<IPillProps> = ({
         borderRadius: 20,
         backgroundColor: color,
         color: theme.colors.white,
-        fontSize: [10, 12, 14],
+        fontSize: [12, 12, 12, 14],
         marginRight: "5px",
+        marginY: "5px",
         ...(selectable && selectableProps),
         ...sx,
       }}

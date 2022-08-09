@@ -17,7 +17,7 @@ export const ContentLayout: React.FC<IContentLayoutProps> = ({
       height: "100%",
       border: `5px solid ${theme.colors.black}`,
       borderRadius: 20,
-      padding: 40,
+      padding: [20, 20, 20, 40],
       overflowY: "scroll",
     }}
   >

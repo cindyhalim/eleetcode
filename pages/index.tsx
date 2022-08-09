@@ -31,24 +31,32 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Flex sx={{ height: "100vh", width: "100%", position: "relative" }}>
+      <Flex
+        sx={{
+          position: "relative",
+          height: "100vh",
+          width: "100%",
+          flexDirection: ["column", "column", "column", "row"],
+        }}
+      >
         <TimerProgress />
-        <Box
+        <Flex
           sx={{
-            width: ["100%", "100%", "100%"],
-            maxWidth: ["100%", "100%", "500px"],
-            padding: 20,
-            display: "flex",
+            width: "100%",
+            maxWidth: ["100%", "100%", "100%", "450px"],
+            padding: [20, 20, 20, 40],
             justifyContent: "center",
-            alignItems: "flex-start",
+            alignItems: ["center", "center", "center", "flex-start"],
             flexDirection: "column",
           }}
         >
-          <Text as="h1" sx={{ ...theme.heading }}>
+          <Text as="h1" sx={{ ...theme.heading, marginTop: [40, 40, 40, 0] }}>
             a leet<span style={{ color: theme.colors.mustard }}>code</span> a{" "}
             <span style={{ color: theme.colors.mustard }}>day</span>
           </Text>
-          <Box sx={{ marginY: 20 }}>
+          <Flex
+            sx={{ marginY: 20, flexDirection: ["row", "row", "row", "column"] }}
+          >
             <Button onClick={() => setCurrentRoute(Route.FILTERS)}>
               filters
             </Button>
@@ -62,13 +70,17 @@ const Home: NextPage = () => {
             >
               give me a problem
             </Button>
-          </Box>
+          </Flex>
+        </Flex>
+        <Box
+          sx={{
+            width: "100%",
+            padding: [20, 20, 20, 40],
+            paddingY: [10, 10, 10, 40],
+          }}
+        >
+          {getContent(currentRoute)}
         </Box>
-        <AnimatePresence>
-          <Box sx={{ width: "100%", padding: 40 }}>
-            {getContent(currentRoute)}
-          </Box>
-        </AnimatePresence>
       </Flex>
     </>
   );
