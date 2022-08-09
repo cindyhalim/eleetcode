@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { Box, Flex } from "rebass";
+import { Box } from "rebass";
 import { theme } from "../styles/theme";
 import { Accordion, Button, ContentLayout, Pill } from "../components";
 import type { ProblemData } from "../api";
@@ -56,18 +56,17 @@ export const Problem = () => {
     <ContentLayout>
       {problem ? (
         <>
-          <Flex
+          <DifficultyPill difficulty={problem.difficulty} />
+          <Box
+            as="h2"
             sx={{
-              marginY: 15,
-              alignItems: "center",
+              marginLeft: "5px",
+              marginBottom: [15, 15, 15, 20],
+              fontSize: [20, 20, 20, 30],
             }}
           >
-            <DifficultyPill difficulty={problem.difficulty} />
-            <Box as="h2" sx={{ marginLeft: "5px", fontSize: [20, 20, 20, 30] }}>
-              {problem.title}
-            </Box>
-          </Flex>
-
+            {problem.title}
+          </Box>
           <Button onClick={handleOnClick}>
             <a href={problem.url} target="_blank" rel="noreferrer">
               visit problem
