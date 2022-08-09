@@ -36,27 +36,25 @@ const Home: NextPage = () => {
           position: "relative",
           height: "100vh",
           width: "100%",
-          flexDirection: ["column", "column", "column", "row"],
+          flexDirection: ["column", "column", "row"],
         }}
       >
         <TimerProgress />
         <Flex
           sx={{
             width: "100%",
-            maxWidth: ["100%", "100%", "100%", "450px"],
-            padding: [20, 20, 20, 40],
+            maxWidth: ["100%", "100%", "450px"],
+            padding: [20, 20, 40],
             justifyContent: "center",
-            alignItems: ["center", "center", "center", "flex-start"],
+            alignItems: ["center", "center", "flex-start"],
             flexDirection: "column",
           }}
         >
-          <Text as="h1" sx={{ ...theme.heading, marginTop: [40, 40, 40, 0] }}>
+          <Text as="h1" sx={{ ...theme.heading, marginTop: [40, 40, 0] }}>
             a leet<span style={{ color: theme.colors.mustard }}>code</span> a{" "}
             <span style={{ color: theme.colors.mustard }}>day</span>
           </Text>
-          <Flex
-            sx={{ marginY: 20, flexDirection: ["row", "row", "row", "column"] }}
-          >
+          <Flex sx={{ marginY: 20, flexDirection: ["row", "row", "column"] }}>
             <Button onClick={() => setCurrentRoute(Route.FILTERS)}>
               filters
             </Button>
@@ -75,8 +73,8 @@ const Home: NextPage = () => {
         <Box
           sx={{
             width: "100%",
-            padding: [20, 20, 20, 40],
-            paddingY: [10, 10, 10, 40],
+            padding: [20, 20, 40],
+            paddingY: [10, 10, 40],
           }}
         >
           {getContent(currentRoute)}
