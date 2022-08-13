@@ -98,8 +98,9 @@ export const useTimer = () => {
   useEffect(() => {
     if (audio && timeElapsed === 0) {
       audio.play();
+      resetTimeElapsed();
     }
-  }, [timeElapsed, audio]);
+  }, [timeElapsed, audio, resetTimeElapsed]);
 
   return {
     timeElapsed,

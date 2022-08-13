@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Box } from "rebass";
+import React, { useCallback, useEffect } from "react";
 import { IProblemSet, ITopic } from "../api";
 import { Accordion, ContentLayout, Pill } from "../components";
 import { useStore } from "../core";
@@ -40,24 +39,38 @@ export const Filters = () => {
     topicsFilter,
     setTopicsFilter,
     clearTopicsFilter,
+    setShowErrorToast,
   } = useStore();
 
-  const getTopics = async () => {
-    const topics = await axios.get<ITopic[]>(`${window.origin}/api/topics`);
-    setTopics(topics.data);
-  };
+  const getTopics = useCallback(async () => {
+    try {
+      const topics = await axios.get<ITopic[]>(`${window.origin}/api/topics`);
+      setTopics(topics.data);
+    } catch {
+      setShowErrorToast(true);
+    }
+  }, [setTopics, setShowErrorToast]);
 
-  const getProblemSets = async () => {
-    const problemSets = await axios.get<IProblemSet[]>(
-      `${window.origin}/api/problem-sets`
-    );
-    setProblemSets(problemSets.data);
-  };
+  const getProblemSets = useCallback(async () => {
+    try {
+      const problemSets = await axios.get<IProblemSet[]>(
+        `${window.origin}/api/problem-sets`
+      );
+      setProblemSets(problemSets.data);
+    } catch {
+      setShowErrorToast(true);
+    }
+  }, [setProblemSets, setShowErrorToast]);
 
   useEffect(() => {
-    getTopics();
-    getProblemSets();
-  }, []);
+    if (!topics || !topics.length) {
+      getTopics();
+    }
+
+    if (!problemSets || !problemSets.length) {
+      getProblemSets();
+    }
+  }, [topics, problemSets, getTopics, getProblemSets]);
 
   return (
     <ContentLayout title="Filters">

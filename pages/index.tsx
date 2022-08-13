@@ -1,14 +1,34 @@
-import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useEffect } from "react";
 import { Box, Flex, Text } from "rebass";
 import { Button, ButtonType } from "../components";
+import { ErrorToast } from "../components/error-toast";
 import { Route, useStore } from "../core";
-import { Problem, Filters, Timer, TimerProgress } from "../features";
+import { Problem, Filters, Timer, TimerProgress, useTimer } from "../features";
 import { theme } from "../styles/theme";
 
 const Home: NextPage = () => {
-  const { currentRoute, setCurrentRoute, setProblem } = useStore();
+  const {
+    currentRoute,
+    setCurrentRoute,
+    setProblem,
+    showErrorToast,
+    setShowErrorToast,
+  } = useStore();
+
+  const { timeElapsed, getTimeRemainingText } = useTimer();
+  const timeRemainingText = timeElapsed
+    ? `${getTimeRemainingText(timeElapsed)} - `
+    : "";
+
+  useEffect(() => {
+    if (!timeRemainingText) {
+      document.title = document.title;
+    } else {
+      document.title = timeRemainingText + document.title;
+    }
+  }, [timeRemainingText]);
 
   const getContent = (currentRoute: Route) => {
     switch (currentRoute) {
@@ -23,12 +43,12 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Leetcode Helper</title>
+        <title>eleet code</title>
         <meta
           name="description"
-          content="Leetcode problem randomizer with timer to get consistent at solving algo problems!"
+          content="random leetcode problem generator with timer to get you consistent at solving algo problems!"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" />
       </Head>
 
       <Flex
@@ -39,21 +59,42 @@ const Home: NextPage = () => {
           flexDirection: ["column", "column", "row"],
         }}
       >
+        <ErrorToast
+          isVisible={showErrorToast}
+          setIsVisible={setShowErrorToast}
+        />
         <TimerProgress />
         <Flex
           sx={{
             width: "100%",
-            maxWidth: ["100%", "100%", "450px"],
+            maxWidth: ["100%", "100%", "320px"],
             padding: [20, 20, 40],
             justifyContent: "center",
             alignItems: ["center", "center", "flex-start"],
             flexDirection: "column",
           }}
         >
-          <Text as="h1" sx={{ ...theme.heading, marginTop: [40, 40, 0] }}>
-            a leet<span style={{ color: theme.colors.mustard }}>code</span> a{" "}
-            <span style={{ color: theme.colors.mustard }}>day</span>
-          </Text>
+          <Flex
+            sx={{
+              flexDirection: ["row", "row", "column"],
+              marginTop: [40, 40, 0],
+            }}
+          >
+            <Text as="h1" sx={{ ...theme.heading }}>
+              \eleet
+            </Text>
+            <Text
+              as="h1"
+              sx={{
+                ...theme.heading,
+                color: theme.colors.mustard,
+                marginLeft: 10,
+                wordWrap: "break-word",
+              }}
+            >
+              code/
+            </Text>
+          </Flex>
           <Flex sx={{ marginY: 20, flexDirection: ["row", "row", "column"] }}>
             <Button onClick={() => setCurrentRoute(Route.FILTERS)}>
               filters

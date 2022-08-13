@@ -29,6 +29,7 @@ interface IState {
   timerSettings: ITimerSettings;
   timerDuration: Seconds | null;
   timeElapsed: Seconds | null;
+  showErrorToast: boolean;
 }
 
 interface IActions {
@@ -50,12 +51,13 @@ interface IActions {
   setTimeElapsed: (time: Seconds) => void;
   setTimerDuration: (time: Seconds) => void;
   resetTimeElapsed: () => void;
+  setShowErrorToast: (show: boolean) => void;
 }
 
 interface IStore extends IState, IActions {}
 
 const initialState: IState = {
-  currentRoute: Route.FILTERS,
+  currentRoute: Route.PROBLEM,
   problem: null,
   topics: [],
   problemSets: null,
@@ -70,6 +72,7 @@ const initialState: IState = {
   },
   timeElapsed: null,
   timerDuration: null,
+  showErrorToast: false,
 };
 
 export const useStore = create<IStore>((set) => ({
@@ -106,4 +109,5 @@ export const useStore = create<IStore>((set) => ({
   setTimeElapsed: (time) => set({ timeElapsed: time }),
   resetTimeElapsed: () => set({ timeElapsed: null }),
   setTimerDuration: (time) => set({ timerDuration: time }),
+  setShowErrorToast: (show: boolean) => set({ showErrorToast: show }),
 }));

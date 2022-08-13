@@ -10,6 +10,8 @@ export const theme = {
       hard: "#eb5168",
       easy: "#63b8ab",
     },
+    error: "#fc4747",
+    errorLight: "#ffe3e3",
   },
   fontFamily: "Arvo",
   heading: {

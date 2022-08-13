@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Box } from "rebass";
 import { theme } from "../styles/theme";
 import { Accordion, Button, ContentLayout, Pill } from "../components";
@@ -7,6 +7,7 @@ import { DifficultyPill } from "./difficulty-pill";
 import { useStore } from "../core";
 import axios from "axios";
 import { useTimer } from "./timer-progress";
+import { Loading } from "../components/loading";
 
 export const Problem = () => {
   const {
@@ -16,35 +17,52 @@ export const Problem = () => {
     topicsFilter,
     problemSetFilter,
     topics,
+    showErrorToast,
+    setShowErrorToast,
   } = useStore();
   const { startTimer, resetTimer } = useTimer();
 
   const getProblem = useCallback(async () => {
-    console.log("Fetching problem");
     const requestBody = {
       difficulty: difficultyFilter,
       problemSet: problemSetFilter,
       topics: topics.length === topicsFilter.length ? null : topicsFilter,
     };
-    const response = await axios.post<ProblemData>(
-      `${window.origin}/api/problem`,
-      requestBody
-    );
-    if (response.data.problem) {
-      setProblem(response.data.problem);
+    const axiosCancel = axios.CancelToken.source();
+
+    try {
+      const response = await axios.post<ProblemData>(
+        `${window.origin}/api/problem`,
+        requestBody
+      );
+      if (response.data.problem) {
+        setProblem(response.data.problem);
+      }
+    } catch (e) {
+      if (!axios.isCancel(e)) {
+        setShowErrorToast(true);
+      }
     }
+
+    return () => {
+      axiosCancel.cancel();
+    };
   }, [
     difficultyFilter,
     problemSetFilter,
     topicsFilter,
     topics.length,
     setProblem,
+    setShowErrorToast,
   ]);
 
   useEffect(() => {
-    resetTimer();
-    getProblem();
-  }, []);
+    if (problem) {
+      resetTimer();
+    } else {
+      getProblem();
+    }
+  }, [problem]);
 
   const handleOnClick = () => {
     if (problem && problem?.difficulty) {
@@ -90,7 +108,9 @@ export const Problem = () => {
             />
           </Accordion>
         </>
-      ) : null}
+      ) : showErrorToast ? null : (
+        <Loading />
+      )}
     </ContentLayout>
   );
 };
