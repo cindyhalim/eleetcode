@@ -93,9 +93,14 @@ export const useTimer = () => {
   }, [])
 
   useEffect(() => {
+    let resetTimerDelay: NodeJS.Timeout | undefined
     if (audio && timeElapsed === 0) {
       audio.play()
-      resetTimeElapsed()
+      resetTimerDelay = setTimeout(() => resetTimeElapsed(), 5000)
+    }
+
+    if (resetTimerDelay) {
+      return () => clearTimeout(resetTimerDelay)
     }
   }, [timeElapsed, audio, resetTimeElapsed])
 
