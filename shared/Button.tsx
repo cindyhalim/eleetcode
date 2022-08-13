@@ -1,16 +1,17 @@
-import { motion } from "framer-motion";
-import React from "react";
-import { Box } from "rebass";
-import { theme } from "../styles/theme";
+import { motion } from "framer-motion"
+import React from "react"
+import { Box } from "rebass"
+
+import { theme } from "styles"
 
 export enum ButtonType {
   "PRIMARY",
   "SECONDARY",
 }
 interface IButtonProps {
-  children: React.ReactNode;
-  type?: ButtonType;
-  onClick: () => void;
+  children: React.ReactNode
+  type?: ButtonType
+  onClick: () => void
 }
 
 export const Button: React.FC<IButtonProps> = ({
@@ -25,10 +26,7 @@ export const Button: React.FC<IButtonProps> = ({
         onClick={onClick}
         sx={{
           ...theme.button,
-          backgroundColor:
-            type === ButtonType.PRIMARY
-              ? theme.colors.black
-              : theme.colors.mustard,
+          backgroundColor: type === ButtonType.PRIMARY ? theme.colors.black : theme.colors.mustard,
           color: theme.colors.white,
           display: "flex",
           justifyContent: "center",
@@ -39,5 +37,5 @@ export const Button: React.FC<IButtonProps> = ({
         {children}
       </Box>
     </motion.div>
-  );
-};
+  )
+}

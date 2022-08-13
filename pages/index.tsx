@@ -1,45 +1,38 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import { useEffect } from "react";
-import { Box, Flex, Text } from "rebass";
-import { Button, ButtonType } from "../components";
-import { ErrorToast } from "../components/error-toast";
-import { Route, useStore } from "../core";
-import { Problem, Filters, Timer, TimerProgress, useTimer } from "../features";
-import { theme } from "../styles/theme";
+import type { NextPage } from "next"
+import Head from "next/head"
+import { useEffect } from "react"
+import { Box, Flex, Text } from "rebass"
+
+import { Button, ButtonType, ErrorToast } from "shared"
+import { Route, useStore, useTimer } from "hooks"
+import { Problem, Filters, Timer, TimerProgress } from "components"
+import { theme } from "styles"
 
 const Home: NextPage = () => {
-  const {
-    currentRoute,
-    setCurrentRoute,
-    setProblem,
-    showErrorToast,
-    setShowErrorToast,
-  } = useStore();
+  const { currentRoute, setCurrentRoute, setProblem, showErrorToast, setShowErrorToast } =
+    useStore()
 
-  const { timeElapsed, getTimeRemainingText } = useTimer();
-  const timeRemainingText = timeElapsed
-    ? `${getTimeRemainingText(timeElapsed)} - `
-    : "";
+  const { timeElapsed, getTimeRemainingText } = useTimer()
+  const timeRemainingText = timeElapsed ? `${getTimeRemainingText(timeElapsed)} - ` : ""
 
   useEffect(() => {
     if (!timeRemainingText) {
-      document.title = document.title;
+      document.title = document.title
     } else {
-      document.title = timeRemainingText + document.title;
+      document.title = timeRemainingText + document.title
     }
-  }, [timeRemainingText]);
+  }, [timeRemainingText])
 
   const getContent = (currentRoute: Route) => {
     switch (currentRoute) {
       case Route.PROBLEM:
-        return <Problem />;
+        return <Problem />
       case Route.TIMER:
-        return <Timer />;
+        return <Timer />
       default:
-        return <Filters />;
+        return <Filters />
     }
-  };
+  }
   return (
     <>
       <Head>
@@ -59,10 +52,7 @@ const Home: NextPage = () => {
           flexDirection: ["column", "column", "row"],
         }}
       >
-        <ErrorToast
-          isVisible={showErrorToast}
-          setIsVisible={setShowErrorToast}
-        />
+        <ErrorToast isVisible={showErrorToast} setIsVisible={setShowErrorToast} />
         <TimerProgress />
         <Flex
           sx={{
@@ -96,15 +86,13 @@ const Home: NextPage = () => {
             </Text>
           </Flex>
           <Flex sx={{ marginY: 20, flexDirection: ["row", "row", "column"] }}>
-            <Button onClick={() => setCurrentRoute(Route.FILTERS)}>
-              filters
-            </Button>
+            <Button onClick={() => setCurrentRoute(Route.FILTERS)}>filters</Button>
             <Button onClick={() => setCurrentRoute(Route.TIMER)}>timer</Button>
             <Button
               type={ButtonType.SECONDARY}
               onClick={() => {
-                setProblem(null);
-                setCurrentRoute(Route.PROBLEM);
+                setProblem(null)
+                setCurrentRoute(Route.PROBLEM)
               }}
             >
               give me a problem
@@ -122,7 +110,7 @@ const Home: NextPage = () => {
         </Box>
       </Flex>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

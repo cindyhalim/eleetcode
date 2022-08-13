@@ -1,12 +1,14 @@
-import React from "react";
-import { Pill } from "../components";
-import { getDifficultyColor } from "./utils";
+import React from "react"
+
+import { Pill } from "shared"
+
+import { getDifficultyColor } from "./utils"
 
 interface IDifficultyPillProps {
-  difficulty: string;
-  selectable?: boolean;
-  isSelected?: boolean;
-  onSelect?: () => void;
+  difficulty: string
+  selectable?: boolean
+  isSelected?: boolean
+  onSelect?: () => void
 }
 
 export const DifficultyPill: React.FC<IDifficultyPillProps> = ({
@@ -23,5 +25,5 @@ export const DifficultyPill: React.FC<IDifficultyPillProps> = ({
       isSelected={isSelected}
       onSelect={onSelect}
     />
-  );
-};
+  )
+}

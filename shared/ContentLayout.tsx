@@ -1,16 +1,14 @@
-import React from "react";
-import { Box, Text } from "rebass";
-import { theme } from "../styles/theme";
+import React from "react"
+import { Box, Text } from "rebass"
+
+import { theme } from "styles"
 
 interface IContentLayoutProps {
-  title?: string;
-  children: React.ReactNode;
+  title?: string
+  children: React.ReactNode
 }
 
-export const ContentLayout: React.FC<IContentLayoutProps> = ({
-  title,
-  children,
-}) => (
+export const ContentLayout: React.FC<IContentLayoutProps> = ({ title, children }) => (
   <Box
     sx={{
       width: "100%",
@@ -28,4 +26,4 @@ export const ContentLayout: React.FC<IContentLayoutProps> = ({
     )}
     {children}
   </Box>
-);
+)

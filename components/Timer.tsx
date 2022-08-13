@@ -1,39 +1,41 @@
-import React from "react";
-import { Box, Flex, Text } from "rebass";
-import { Accordion, ContentLayout } from "../components";
-import { Input, Switch } from "@rebass/forms";
-import { useStore } from "../core";
-import { theme } from "../styles/theme";
-import { Difficulties, getDifficultyColor } from "./utils";
+import React from "react"
+import { Box, Flex, Text } from "rebass"
+import { Input, Switch } from "@rebass/forms"
+
+import { Accordion, ContentLayout } from "shared"
+import { useStore } from "hooks"
+import { theme } from "styles"
+
+import { Difficulties, getDifficultyColor } from "./utils"
 
 export const Timer = () => {
   const {
     timerSettings: { enabled, easy, medium, hard },
     setTimerEnabled,
     setTimerDurationSetting,
-  } = useStore();
+  } = useStore()
 
   const getDuration = (difficulty: string) => {
     switch (difficulty) {
       case "Easy":
-        return easy;
+        return easy
       case "Medium":
-        return medium;
+        return medium
       case "Hard":
-        return hard;
+        return hard
     }
-  };
+  }
 
   const getKey = (difficulty: string) => {
     switch (difficulty) {
       case "Easy":
-        return "easy";
+        return "easy"
       case "Medium":
-        return "medium";
+        return "medium"
       default:
-        return "hard";
+        return "hard"
     }
-  };
+  }
 
   return (
     <ContentLayout title="Timer Settings">
@@ -82,17 +84,14 @@ export const Timer = () => {
                 outlineColor: getDifficultyColor(difficulty),
               }}
               onChange={(event) => {
-                const value = event.target.value;
-                const key = getKey(difficulty);
-                setTimerDurationSetting(
-                  key,
-                  value.match(/\d/) && value.length <= 3 ? value : ""
-                );
+                const value = event.target.value
+                const key = getKey(difficulty)
+                setTimerDurationSetting(key, value.match(/\d/) && value.length <= 3 ? value : "")
               }}
             />
           </Flex>
         ))}
       </Accordion>
     </ContentLayout>
-  );
-};
+  )
+}

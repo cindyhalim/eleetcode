@@ -1,19 +1,15 @@
-import axios from "axios";
-import React, { useCallback, useEffect } from "react";
-import { IProblemSet, ITopic } from "../api";
-import { Accordion, ContentLayout, Pill } from "../components";
-import { useStore } from "../core";
-import { theme } from "../styles/theme";
-import { DifficultyPill } from "./difficulty-pill";
-import { Difficulties } from "./utils";
+import axios from "axios"
+import React, { useCallback, useEffect } from "react"
+import type { IProblemSet, ITopic } from "api"
 
-const AllFilter = ({
-  isSelected,
-  onSelect,
-}: {
-  isSelected: boolean;
-  onSelect: () => void;
-}) => (
+import { useStore } from "hooks"
+import { Accordion, ContentLayout, Pill } from "shared"
+import { theme } from "styles"
+
+import { DifficultyPill } from "./DifficultyPill"
+import { Difficulties } from "./utils"
+
+const AllFilter = ({ isSelected, onSelect }: { isSelected: boolean; onSelect: () => void }) => (
   <Pill
     key={"All"}
     text={"All"}
@@ -22,7 +18,7 @@ const AllFilter = ({
     sx={{ marginY: "2px" }}
     onSelect={onSelect}
   />
-);
+)
 
 export const Filters = () => {
   const {
@@ -40,45 +36,40 @@ export const Filters = () => {
     setTopicsFilter,
     clearTopicsFilter,
     setShowErrorToast,
-  } = useStore();
+  } = useStore()
 
   const getTopics = useCallback(async () => {
     try {
-      const topics = await axios.get<ITopic[]>(`${window.origin}/api/topics`);
-      setTopics(topics.data);
+      const topics = await axios.get<ITopic[]>(`${window.origin}/api/topics`)
+      setTopics(topics.data)
     } catch {
-      setShowErrorToast(true);
+      setShowErrorToast(true)
     }
-  }, [setTopics, setShowErrorToast]);
+  }, [setTopics, setShowErrorToast])
 
   const getProblemSets = useCallback(async () => {
     try {
-      const problemSets = await axios.get<IProblemSet[]>(
-        `${window.origin}/api/problem-sets`
-      );
-      setProblemSets(problemSets.data);
+      const problemSets = await axios.get<IProblemSet[]>(`${window.origin}/api/problem-sets`)
+      setProblemSets(problemSets.data)
     } catch {
-      setShowErrorToast(true);
+      setShowErrorToast(true)
     }
-  }, [setProblemSets, setShowErrorToast]);
+  }, [setProblemSets, setShowErrorToast])
 
   useEffect(() => {
     if (!topics || !topics.length) {
-      getTopics();
+      getTopics()
     }
 
     if (!problemSets || !problemSets.length) {
-      getProblemSets();
+      getProblemSets()
     }
-  }, [topics, problemSets, getTopics, getProblemSets]);
+  }, [topics, problemSets, getTopics, getProblemSets])
 
   return (
     <ContentLayout title="Filters">
       <Accordion title={"Difficulty"}>
-        <AllFilter
-          isSelected={!difficultyFilter}
-          onSelect={() => clearDifficultyFilter()}
-        />
+        <AllFilter isSelected={!difficultyFilter} onSelect={() => clearDifficultyFilter()} />
         {Difficulties.map((difficulty, idx) => (
           <DifficultyPill
             key={idx}
@@ -86,16 +77,13 @@ export const Filters = () => {
             selectable
             isSelected={difficultyFilter === difficulty}
             onSelect={() => {
-              setDifficultyFilter(difficulty);
+              setDifficultyFilter(difficulty)
             }}
           />
         ))}
       </Accordion>
       <Accordion title={"Topics"}>
-        <AllFilter
-          isSelected={!topicsFilter.length}
-          onSelect={() => clearTopicsFilter()}
-        />
+        <AllFilter isSelected={!topicsFilter.length} onSelect={() => clearTopicsFilter()} />
         {topics.map((topic) => (
           <Pill
             key={topic.id}
@@ -108,10 +96,7 @@ export const Filters = () => {
         ))}
       </Accordion>
       <Accordion title={"Problem sets"}>
-        <AllFilter
-          isSelected={!problemSetFilter}
-          onSelect={() => clearProblemSetFilter()}
-        />
+        <AllFilter isSelected={!problemSetFilter} onSelect={() => clearProblemSetFilter()} />
         {problemSets &&
           problemSets.map((problemSet) => (
             <Pill
@@ -121,11 +106,11 @@ export const Filters = () => {
               isSelected={problemSetFilter === problemSet.id}
               sx={{ marginY: "2px" }}
               onSelect={() => {
-                setProblemSetFilter(problemSet.id);
+                setProblemSetFilter(problemSet.id)
               }}
             />
           ))}
       </Accordion>
     </ContentLayout>
-  );
-};
+  )
+}

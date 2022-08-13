@@ -1,14 +1,15 @@
-import React from "react";
-import { Box, SxStyleProp } from "rebass";
-import { theme } from "../styles/theme";
+import React from "react"
+import { Box, SxStyleProp } from "rebass"
+
+import { theme } from "styles"
 
 interface IPillProps {
-  color: string;
-  text: string;
-  selectable?: boolean;
-  isSelected?: boolean;
-  onSelect?: () => void;
-  sx?: SxStyleProp;
+  color: string
+  text: string
+  selectable?: boolean
+  isSelected?: boolean
+  onSelect?: () => void
+  sx?: SxStyleProp
 }
 
 export const Pill: React.FC<IPillProps> = ({
@@ -29,7 +30,7 @@ export const Pill: React.FC<IPillProps> = ({
     backgroundColor: isSelected ? color : theme.colors.white,
     color: isSelected ? theme.colors.white : color,
     border: `2px solid ${color}`,
-  };
+  }
 
   return (
     <Box
@@ -53,5 +54,5 @@ export const Pill: React.FC<IPillProps> = ({
     >
       {text}
     </Box>
-  );
-};
+  )
+}

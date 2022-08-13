@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
-import React, { useEffect } from "react";
-import { Flex, Box } from "rebass";
+import { motion } from "framer-motion"
+import React from "react"
+import { Flex } from "rebass"
 
 export const Loading = () => {
   return (
@@ -37,5 +37,5 @@ export const Loading = () => {
         ))}
       </Flex>
     </Flex>
-  );
-};
+  )
+}

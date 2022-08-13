@@ -1,28 +1,25 @@
-import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import React, { useState } from "react";
-import { Box, Flex, Text } from "rebass";
+import { AnimatePresence, motion } from "framer-motion"
+import Image from "next/image"
+import React, { useState } from "react"
+import { Box, Flex, Text } from "rebass"
 
 interface IAccordionProps {
-  title: string;
-  children: React.ReactNode;
+  title: string
+  children: React.ReactNode
 }
 
 export const Accordion: React.FC<IAccordionProps> = ({ title, children }) => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
-  const ICON_DIMENSION_IN_PX = 15;
+  const ICON_DIMENSION_IN_PX = 15
 
   const handleOnClick = () => {
-    setIsExpanded(!isExpanded);
-  };
+    setIsExpanded(!isExpanded)
+  }
 
   return (
     <Box sx={{ marginY: 20 }}>
-      <Flex
-        sx={{ alignItems: "center", cursor: "pointer" }}
-        onClick={handleOnClick}
-      >
+      <Flex sx={{ alignItems: "center", cursor: "pointer" }} onClick={handleOnClick}>
         <Image
           src="/icons/right.png"
           alt="accordion-icon"
@@ -48,5 +45,5 @@ export const Accordion: React.FC<IAccordionProps> = ({ title, children }) => {
         )}
       </AnimatePresence>
     </Box>
-  );
-};
+  )
+}

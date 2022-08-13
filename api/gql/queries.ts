@@ -4,7 +4,7 @@ export const TotalProblemsQuery = `
       total: totalNum
     }
   }
-`;
+`
 export const ProblemSetQuery = `
   query problemsetQuestionList($categorySlug: String, $limit: Int, $filters: QuestionListFilterInput) {
     problemsetQuestionList: questionList(categorySlug: $categorySlug, limit: $limit, filters: $filters) {
@@ -16,7 +16,7 @@ export const ProblemSetQuery = `
     }
   }
 }
-`;
+`
 
 export const QuestionDataQuery = `
   query questionData($titleSlug: String!) {
@@ -33,7 +33,7 @@ export const QuestionDataQuery = `
       }
     }
   }
-`;
+`
 
 export const QuestionTopicTags = `
   query questionTopicTags {
@@ -48,7 +48,7 @@ export const QuestionTopicTags = `
       }
     }
   }
-`;
+`
 
 export const FeaturedQuestionLists = `
   query featuredQuestionLists {
@@ -58,4 +58,4 @@ export const FeaturedQuestionLists = `
 		isPaidOnly
 	}
 }
-`;
+`

@@ -31,5 +31,4 @@ export const theme = {
     marginBottom: 10,
     marginRight: 10,
   },
-  text: {},
-};
+}

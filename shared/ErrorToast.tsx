@@ -1,16 +1,14 @@
-import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
-import { Box, Text } from "rebass";
-import { theme } from "../styles/theme";
+import { AnimatePresence, motion } from "framer-motion"
+import React from "react"
+import { Box, Text } from "rebass"
+
+import { theme } from "styles"
 
 interface IErrorToastProps {
-  isVisible: boolean;
-  setIsVisible: (show: boolean) => void;
+  isVisible: boolean
+  setIsVisible: (show: boolean) => void
 }
-export const ErrorToast: React.FC<IErrorToastProps> = ({
-  isVisible,
-  setIsVisible,
-}) => {
+export const ErrorToast: React.FC<IErrorToastProps> = ({ isVisible, setIsVisible }) => {
   return (
     <Box
       sx={{
@@ -31,9 +29,7 @@ export const ErrorToast: React.FC<IErrorToastProps> = ({
               hide: { opacity: 0 },
             }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            onAnimationComplete={() =>
-              setTimeout(() => setIsVisible(false), 4000)
-            }
+            onAnimationComplete={() => setTimeout(() => setIsVisible(false), 4000)}
           >
             <Box
               sx={{
@@ -47,13 +43,11 @@ export const ErrorToast: React.FC<IErrorToastProps> = ({
                 borderRadius: 5,
               }}
             >
-              <Text sx={{ color: "#fc4747", fontWeight: "bold" }}>
-                Something went wrong!
-              </Text>
+              <Text sx={{ color: "#fc4747", fontWeight: "bold" }}>Something went wrong!</Text>
             </Box>
           </motion.div>
         )}
       </AnimatePresence>
     </Box>
-  );
-};
+  )
+}
