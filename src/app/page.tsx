@@ -1,17 +1,13 @@
 'use client'
 
-import Card from '@/app/components/Card'
+import { useContext } from 'react'
+
+import Card from '@/app/Card'
+import DrawerProvider, { DrawerContext } from './context/DrawerContext'
 
 import { Category, Difficulty } from './types'
-
-function Navbar() {
-  return (
-    <nav className="flex w-full justify-between items-center mb-[100px]">
-      <h3 className="text-2xl font-semibold  text-slate-800">eleetcode</h3>
-      <span>settings</span>
-    </nav>
-  )
-}
+import SettingsDrawer from './SettingsDrawer'
+import { Navbar } from './Navbar'
 
 const PROBLEM = {
   [Category.ANY]: {
@@ -44,13 +40,25 @@ const PROBLEM = {
   },
 }
 
+function Main() {
+  const { isOpen } = useContext(DrawerContext)
+  const overlayClassNames = 'bg-blend-overlay blur-sm transition ease-in-out'
+  return (
+    <>
+      <div className={isOpen ? overlayClassNames : ''}>
+        <Navbar />
+        <Card problem={PROBLEM} />
+      </div>
+    </>
+  )
+}
 export default function Home() {
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center p-10 bg-slate-50/80`}
-    >
-      <Navbar />
-      <Card problem={PROBLEM} />
+    <main className={`relative min-h-screen p-10 bg-slate-50/80`}>
+      <DrawerProvider>
+        <SettingsDrawer />
+        <Main />
+      </DrawerProvider>
     </main>
   )
 }

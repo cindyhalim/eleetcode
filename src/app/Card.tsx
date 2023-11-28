@@ -1,11 +1,11 @@
 'use client'
 
 import { useContext } from 'react'
-import { Category, type Difficulty } from '../types'
+import { type Difficulty } from './types'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AppContext } from '../context/AppContext'
-import Problem from './Problem'
-import CardNav from './CardNav'
+import { AppContext } from './context/AppContext'
+import Problem from './components/Problem'
+import CardNav from './components/CardNav'
 
 type Problem = {
   id: string

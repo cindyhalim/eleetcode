@@ -1,6 +1,6 @@
 type Minute = number
 
-type TimerSettings = {
+export type TimerSettings = {
   enabled: boolean
   easy: Minute
   medium: Minute
@@ -23,7 +23,7 @@ function getTimerSettings() {
     return null
   }
 
-  return JSON.parse(settings)
+  return JSON.parse(settings) as TimerSettings
 }
 
 function setTimerSettings(payload: TimerSettings = DEFAULT_TIMER_SETTINGS) {
