@@ -16,8 +16,8 @@ export default function CardNav() {
   const { setCurrentTab, currentTab } = useContext(AppContext)
 
   return (
-    <div className="px-2 border-b border-gray-300/50">
-      <nav className="grid grid-cols-4 h-[50px]">
+    <div className="border-b border-gray-300/50 px-2">
+      <nav className="grid h-[50px] grid-cols-4">
         {CATEGORY_TABS.map((tabId, idx) => (
           <CardTab
             key={idx}

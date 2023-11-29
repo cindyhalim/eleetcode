@@ -11,7 +11,7 @@ export default function Pill({
 }: PropsWithChildren<PillProps>) {
   return (
     <span
-      className="cursor-pointer bg-gray-300 hover:bg-gray-200  text-gray-800 hover:text-gray-600 text-sm font-medium uppercase px-3 py-2 rounded"
+      className="cursor-pointer rounded bg-gray-300  px-3 py-2 text-sm font-medium uppercase text-gray-800 hover:bg-gray-200 hover:text-gray-600"
       onClick={onClick}
     >
       {children}

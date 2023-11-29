@@ -4,7 +4,7 @@ function QuestionIcon() {
   return (
     <button type="button">
       <svg
-        className="w-6 h-6 ms-4 text-gray-800 hover:text-gray-600"
+        className="ms-4 h-6 w-6 text-gray-800 hover:text-gray-600"
         aria-hidden="true"
         fill="currentColor"
         viewBox="0 0 20 20"
@@ -27,9 +27,9 @@ export default function Tooltip({ children }: PropsWithChildren) {
       <QuestionIcon />
       <div
         role="tooltip"
-        className="absolute opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-opacity duration-500 mt-2 z-10 inline-block bg-white border border-gray-200 rounded-lg shadow-sm w-72"
+        className="invisible absolute z-10 mt-2 inline-block w-72 rounded-lg border border-gray-200 bg-white opacity-0 shadow-sm transition-opacity duration-500 group-hover:visible group-hover:opacity-100"
       >
-        <div className="p-3 space-y-2">{children}</div>
+        <div className="space-y-2 p-3">{children}</div>
       </div>
     </div>
   )

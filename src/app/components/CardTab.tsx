@@ -55,16 +55,14 @@ export default function CardTab({
 }: PropsWithChildren<TabProps>) {
   return (
     <div
-      className={`relative cursor-pointer flex items-center p-3 ${
-        isSelected
-          ? `${getBackgroundColor(tabId)} rounded-tl-md rounded-tr-md`
-          : ''
+      className={`relative flex cursor-pointer items-center p-3 ${
+        isSelected ? `${getBackgroundColor(tabId)} rounded-t-md` : ''
       }`}
       onClick={onClick}
     >
       <span className="ms-2">{getEmoji(tabId)}</span>
 
-      <p className={`font-semibold text-md capitalize ms-2.5 text-gray-800`}>
+      <p className={`ms-2.5 text-sm font-semibold capitalize text-gray-800`}>
         {children}
       </p>
 

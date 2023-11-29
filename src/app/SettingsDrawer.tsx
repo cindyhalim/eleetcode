@@ -35,7 +35,7 @@ function SettingsInput({
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-[80px] bg-gray-50 border border-gray-300 text-gray-800 text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 p-2 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-600"
+        className="w-[80px] rounded-md border border-gray-300 bg-gray-50 p-2 text-xs text-gray-800 focus:border-blue-500 focus:ring-blue-500 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-600"
       />
     </div>
   )
@@ -94,7 +94,7 @@ export default function SettingsDrawer() {
         <Toggle checked={isTimerEnabled} onChange={setIsTimerEnabled} />
       </div>
       <div className="relative mt-5">
-        <p className="font-semibold py-3">Timer duration (in minutes):</p>
+        <p className="py-3 font-semibold">Timer duration (in minutes):</p>
         {timerDurationInputs.map((input, idx) => (
           <SettingsInput
             key={idx}
@@ -105,7 +105,7 @@ export default function SettingsDrawer() {
             disabled={!isTimerEnabled}
           />
         ))}
-        <div className="absolute right-0 py-2 mt-6">
+        <div className="absolute right-0 mt-6 py-2">
           <Button
             onClick={() =>
               handleOnClick({

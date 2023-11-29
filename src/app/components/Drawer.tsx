@@ -31,18 +31,18 @@ export default function Drawer({
             duration: 0.2,
           }}
           exit={{ x: INITIAL_X }}
-          className="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto bg-white w-[500px] shadow-md"
+          className="fixed right-0 top-0 z-40 h-screen w-[500px] overflow-y-auto bg-white p-4 shadow-md"
           tabIndex={-1}
           aria-labelledby={`${id}-label`}
         >
           <h3
             id={`${id}-label`}
-            className="inline-flex items-center mb-4 text-lg font-bold text-gray-800"
+            className="mb-4 inline-flex items-center text-lg font-bold text-gray-800"
           >
             {title}
           </h3>
           <CloseButton onClose={onClose} />
-          <div className="text-sm py-4">{children}</div>
+          <div className="py-4 text-sm">{children}</div>
         </motion.div>
       )}
     </AnimatePresence>

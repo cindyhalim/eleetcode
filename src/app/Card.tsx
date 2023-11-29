@@ -30,9 +30,9 @@ export default function Card({ problem }: CardProps) {
   }
 
   return (
-    <div className="bg-white mt-[100px] pt-2 pb-8 shadow-xl ring-1 ring-gray-900/5 rounded sm:mx-auto sm:max-w-lg sm:rounded-lg md:min-w-[600px] lg:min-w-[800px] min-h-[500px]">
+    <div className="mt-[100px] min-h-[500px] rounded bg-white pb-8 pt-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg md:min-w-[600px] lg:min-w-[800px]">
       <CardNav />
-      <div className="py-20 px-10 lg:px-20">
+      <div className="px-10 py-20 lg:px-20">
         <AnimatePresence mode="wait">
           <motion.div
             key={id}

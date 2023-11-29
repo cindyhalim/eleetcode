@@ -12,7 +12,7 @@ export default function Problem({ title, topics, onClick }: ProblemProps) {
   return (
     <div className="space-y-10 ">
       <div className="flex items-end">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 tracking-wide">
+        <h1 className="text-2xl font-bold tracking-wide text-gray-800 sm:text-3xl md:text-4xl">
           {title}
         </h1>
         <Tooltip>
