@@ -3,11 +3,12 @@
 import { useContext } from 'react'
 
 import Card from '@/app/Card'
-import DrawerProvider, { DrawerContext } from './context/DrawerContext'
+import { DrawerContext } from './context/DrawerContext'
 
 import { Category, Difficulty } from './types'
 import SettingsDrawer from './SettingsDrawer'
 import { Navbar } from './Navbar'
+import TimerProvider from './context/TimerContext'
 
 const PROBLEM = {
   [Category.ANY]: {
@@ -44,21 +45,24 @@ function Main() {
   const { isOpen } = useContext(DrawerContext)
   const overlayClassNames = 'bg-blend-overlay blur-sm transition ease-in-out'
   return (
-    <>
-      <div className={isOpen ? overlayClassNames : ''}>
+    <TimerProvider>
+      <div
+        className={`flex flex-col items-center ${
+          isOpen ? overlayClassNames : ''
+        }`}
+      >
         <Navbar />
         <Card problem={PROBLEM} />
       </div>
-    </>
+    </TimerProvider>
   )
 }
+
 export default function Home() {
   return (
-    <main className={`relative min-h-screen p-10 bg-slate-50/80`}>
-      <DrawerProvider>
-        <SettingsDrawer />
-        <Main />
-      </DrawerProvider>
+    <main className={`relative min-h-screen bg-slate-50/80`}>
+      <SettingsDrawer />
+      <Main />
     </main>
   )
 }

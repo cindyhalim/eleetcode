@@ -1,11 +1,12 @@
 'use client'
 
 import { useContext } from 'react'
-import { type Difficulty } from './types'
+import { Difficulty } from './types'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AppContext } from './context/AppContext'
 import Problem from './components/Problem'
 import CardNav from './components/CardNav'
+import { TimerContext } from './context/TimerContext'
 
 type Problem = {
   id: string
@@ -19,15 +20,17 @@ type CardProps = { problem: { [key: string]: Problem } }
 
 export default function Card({ problem }: CardProps) {
   const { currentTab } = useContext(AppContext)
+  const { startTimer } = useContext(TimerContext)
 
   const { title, url, topics, id } = problem[currentTab]
 
   function handleOnClick() {
     window.open(url, '_blank')
+    startTimer(Difficulty.EASY)
   }
 
   return (
-    <div className="bg-white pt-2 pb-8 shadow-xl ring-1 ring-gray-900/5 rounded sm:mx-auto sm:max-w-lg sm:rounded-lg md:min-w-[600px] lg:min-w-[800px] min-h-[500px]">
+    <div className="bg-white mt-[100px] pt-2 pb-8 shadow-xl ring-1 ring-gray-900/5 rounded sm:mx-auto sm:max-w-lg sm:rounded-lg md:min-w-[600px] lg:min-w-[800px] min-h-[500px]">
       <CardNav />
       <div className="py-20 px-10 lg:px-20">
         <AnimatePresence mode="wait">
