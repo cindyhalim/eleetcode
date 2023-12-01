@@ -2,11 +2,20 @@ import { DateTime } from 'luxon'
 
 import Card from '@/app/Card'
 
-import TimerProvider from './context/TimerContext'
-import SettingsDrawer from './features/drawer/SettingsDrawer'
 import DrawerOverlayWrapper from './features/drawer/DrawerOverlayWrapper'
 import { Navbar } from './Navbar'
 import { type DailyProblemsResponse } from './types'
+import dynamic from 'next/dynamic'
+
+const TimerProvider = dynamic(() => import('./context/TimerContext'), {
+  ssr: false,
+})
+const SettingsDrawer = dynamic(
+  () => import('./features/drawer/SettingsDrawer'),
+  {
+    ssr: false,
+  }
+)
 
 async function getProblemsForTheDay() {
   const today = DateTime.now().toFormat('MM-dd-yyyy')
