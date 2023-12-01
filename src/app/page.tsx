@@ -2,19 +2,17 @@ import { DateTime } from 'luxon'
 
 import Card from '@/app/Card'
 
+import TimerProvider from './context/TimerContext'
 import DrawerOverlayWrapper from './features/drawer/DrawerOverlayWrapper'
+import SettingsDrawer from './features/drawer/SettingsDrawer'
 import { Navbar } from './Navbar'
 import { type DailyProblemsResponse } from './types'
-import SettingsDrawer from './features/drawer/SettingsDrawer'
-import TimerProvider from './context/TimerContext'
 
 export const runtime = 'edge'
 
-async function getProblemsForTheDay() {
-  const today = DateTime.now().toFormat('MM-dd-yyyy')
-
+async function getProblemsForTheDay(day: string) {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL
-  const response = await fetch(`${baseUrl}/problems/date/${today}`, {
+  const response = await fetch(`${baseUrl}/problems/date/${day}`, {
     method: 'get',
     next: { revalidate: 60 },
   })
@@ -29,7 +27,8 @@ async function getProblemsForTheDay() {
 }
 
 export default async function Home() {
-  const problems = await getProblemsForTheDay()
+  const today = DateTime.now().toFormat('MM-dd-yyyy')
+  const problems = await getProblemsForTheDay(today)
 
   return (
     <main className={`relative min-h-screen bg-slate-50/80`}>
