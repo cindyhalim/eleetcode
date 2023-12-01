@@ -20,7 +20,7 @@ const SettingsDrawer = dynamic(
 async function getProblemsForTheDay() {
   const today = DateTime.now().toFormat('MM-dd-yyyy')
 
-  const baseUrl = process.env.BASE_SERVER_URL
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
   const response = await fetch(`${baseUrl}/problems/date/${today}`, {
     method: 'get',
     next: { revalidate: 60 },
