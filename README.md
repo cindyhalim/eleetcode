@@ -4,7 +4,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/693056d4-fea9-41fe-82bc-38a04fa8d4ad/deploy-status)](https://app.netlify.com/sites/eleetcode/deploys) | **[site](https://eleetcode.netlify.app/)**
+[![Netlify Status](https://api.netlify.com/api/v1/badges/693056d4-fea9-41fe-82bc-38a04fa8d4ad/deploy-status)](https://app.netlify.com/sites/eleetcode/deploys) | **[site](https://eleetcode.vercel.app/)**
 
 </div>
 
