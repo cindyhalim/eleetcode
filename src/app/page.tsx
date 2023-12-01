@@ -5,17 +5,10 @@ import Card from '@/app/Card'
 import DrawerOverlayWrapper from './features/drawer/DrawerOverlayWrapper'
 import { Navbar } from './Navbar'
 import { type DailyProblemsResponse } from './types'
-import dynamic from 'next/dynamic'
+import SettingsDrawer from './features/drawer/SettingsDrawer'
+import TimerProvider from './context/TimerContext'
 
-const TimerProvider = dynamic(() => import('./context/TimerContext'), {
-  ssr: false,
-})
-const SettingsDrawer = dynamic(
-  () => import('./features/drawer/SettingsDrawer'),
-  {
-    ssr: false,
-  }
-)
+export const runtime = 'edge'
 
 async function getProblemsForTheDay() {
   const today = DateTime.now().toFormat('MM-dd-yyyy')
