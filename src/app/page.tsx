@@ -1,68 +1,43 @@
-'use client'
-
-import { useContext } from 'react'
+import { DateTime } from 'luxon'
 
 import Card from '@/app/Card'
-import { DrawerContext } from './context/DrawerContext'
 
-import { Category, Difficulty } from './types'
-import SettingsDrawer from './SettingsDrawer'
-import { Navbar } from './Navbar'
 import TimerProvider from './context/TimerContext'
+import SettingsDrawer from './features/drawer/SettingsDrawer'
+import DrawerOverlayWrapper from './features/drawer/DrawerOverlayWrapper'
+import { Navbar } from './Navbar'
+import { type DailyProblemsResponse } from './types'
 
-const PROBLEM = {
-  [Category.ANY]: {
-    id: '1',
-    title: 'Any Problem',
-    url: '',
-    difficulty: Difficulty.EASY,
-    topics: ['Hash table', 'Array'],
-  },
-  [Category.EASY]: {
-    id: '2',
-    title: 'Easy Problem',
-    url: '',
-    difficulty: Difficulty.EASY,
-    topics: ['Linked list'],
-  },
-  [Category.MEDIUM]: {
-    id: '3',
-    title: 'Medium Problem',
-    url: '',
-    difficulty: Difficulty.MEDIUM,
-    topics: ['Sliding window', 'Heap'],
-  },
-  [Category.HARD]: {
-    id: '4',
-    title: 'Hard Problem',
-    url: '',
-    difficulty: Difficulty.HARD,
-    topics: ['Dynamic Programming', 'Backtracking', 'DFS'],
-  },
+async function getProblemsForTheDay() {
+  const today = DateTime.now().toFormat('MM-dd-yyyy')
+
+  const baseUrl = process.env.BASE_SERVER_URL
+  const response = await fetch(`${baseUrl}/problems/date/${today}`, {
+    method: 'get',
+    next: { revalidate: 60 },
+  })
+
+  if (!response.ok) {
+    throw Error('Error retrieving problem for the day')
+  }
+
+  const problems = await response.json()
+
+  return problems.problems as DailyProblemsResponse
 }
 
-function Main() {
-  const { isOpen } = useContext(DrawerContext)
-  const overlayClassNames = 'bg-blend-overlay blur-sm transition ease-in-out'
-  return (
-    <TimerProvider>
-      <div
-        className={`flex flex-col items-center ${
-          isOpen ? overlayClassNames : ''
-        }`}
-      >
-        <Navbar />
-        <Card problem={PROBLEM} />
-      </div>
-    </TimerProvider>
-  )
-}
+export default async function Home() {
+  const problems = await getProblemsForTheDay()
 
-export default function Home() {
   return (
     <main className={`relative min-h-screen bg-slate-50/80`}>
       <SettingsDrawer />
-      <Main />
+      <TimerProvider>
+        <DrawerOverlayWrapper>
+          <Navbar />
+          <Card problems={problems} />
+        </DrawerOverlayWrapper>
+      </TimerProvider>
     </main>
   )
 }

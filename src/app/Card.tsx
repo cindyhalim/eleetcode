@@ -1,32 +1,25 @@
 'use client'
 
 import { useContext } from 'react'
-import { Difficulty } from './types'
+import { type DailyProblemsResponse } from './types'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AppContext } from './context/AppContext'
 import Problem from './components/Problem'
 import CardNav from './components/CardNav'
 import { TimerContext } from './context/TimerContext'
 
-type Problem = {
-  id: string
-  title: string
-  difficulty: Difficulty
-  url: string
-  topics: string[]
+type CardProps = {
+  problems: DailyProblemsResponse
 }
-
-type CardProps = { problem: { [key: string]: Problem } }
-
-export default function Card({ problem }: CardProps) {
+export default function Card({ problems }: CardProps) {
   const { currentTab } = useContext(AppContext)
   const { startTimer } = useContext(TimerContext)
 
-  const { title, url, topics, id } = problem[currentTab]
+  const { title, url, topics, id, difficulty } = problems[currentTab]
 
   function handleOnClick() {
     window.open(url, '_blank')
-    startTimer(Difficulty.EASY)
+    startTimer(difficulty)
   }
 
   return (

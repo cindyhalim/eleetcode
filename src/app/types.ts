@@ -1,12 +1,22 @@
 export enum Category {
-  ANY = "any",
-  EASY = "easy",
-  MEDIUM = "medium",
-  HARD = "hard",
+  ANY = 'ANY',
+  EASY = 'EASY',
+  MEDIUM = 'MEDIUM',
+  HARD = 'HARD',
 }
 
 export enum Difficulty {
-  EASY = "easy",
-  MEDIUM = "medium",
-  HARD = "hard",
+  EASY = 'EASY',
+  MEDIUM = 'MEDIUM',
+  HARD = 'HARD',
 }
+
+type Problem = {
+  id: string
+  title: string
+  difficulty: Difficulty
+  url: string
+  topics: string[]
+}
+
+export type DailyProblemsResponse = Record<Category, Problem>

@@ -5,7 +5,6 @@ import { useContext } from 'react'
 import { DrawerContext } from '@/app/context/DrawerContext'
 import { AnimatePresence, motion } from 'framer-motion'
 import { TimerContext } from './context/TimerContext'
-import Head from 'next/head'
 
 function Timer() {
   const { isTimerRunning, timeElapsed, getTimeRemainingText } =
