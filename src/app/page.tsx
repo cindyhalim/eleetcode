@@ -27,7 +27,9 @@ async function getProblemsForTheDay(day: string) {
 }
 
 export default async function Home() {
-  const today = DateTime.now().toFormat('MM-dd-yyyy')
+  const today = DateTime.now()
+    .setZone('America/New_York')
+    .toFormat('MM-dd-yyyy')
   const problems = await getProblemsForTheDay(today)
 
   return (
