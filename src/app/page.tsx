@@ -14,7 +14,7 @@ async function getProblemsForTheDay(day: string) {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL
   const response = await fetch(`${baseUrl}/problems/date/${day}`, {
     method: 'get',
-    next: { revalidate: 60 },
+    next: { revalidate: 10 },
   })
 
   if (!response.ok) {
